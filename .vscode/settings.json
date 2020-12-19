@@ -1,4 +1,5 @@
 {
     "cSpell.language": ",pt,pt_BR",
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.dimInactiveRegions": true
 }

@@ -10,7 +10,7 @@ class LeitorBase
         LeitorBase();//construtor
         ~LeitorBase();//destrutor
         string getpath();//pegar o caminho
-
+        void setpath(string path);//colocar o caminho do arquivo
 }
 
 
