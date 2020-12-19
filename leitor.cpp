@@ -3,15 +3,16 @@
 
 
 
-Leitor::Leitor(){}
 
-Leitor::~Leitor(){}
+LeitorBase::Leitor(){}
 
-string Leitor::getPath()
+LeitorBase::~Leitor(){}
+
+string LeitorBase::getPath()
 {
     return path;
 }
-void Leitor::setpath(string path)
+void LeitorBase::setpath(string path)
 {
     cout << "Digite o caminho do arquivo que quer ler" << endl;
     cin >> path;
