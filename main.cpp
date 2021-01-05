@@ -25,15 +25,15 @@ int main()
 
     BrazilCovid *covid = leitor->getDataset();
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 200; i++)
     {
         cout << "Estado " << covid[i].state << " cidade " << covid[i].name << " dia " << covid[i].date.day << " mes " << covid[i].date.mounth << " casos " << covid[i].cases << endl;
     }
     cout << "########" << endl;
 
-    quickSort(covid, 0, 1000);
+    quickSort(covid, 0, 50000);
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 200; i++)
     {
         cout << "Estado " << covid[i].state << " cidade " << covid[i].name << " dia " << covid[i].date.day << " mes " << covid[i].date.mounth << " casos " << covid[i].cases << endl;
     }
@@ -43,27 +43,50 @@ int main()
 
 void quickSort(BrazilCovid *vet, int inicio, int fim)
 {
-    int i,j;
+    int i, j;
     i = inicio;
     j = fim;
-    BrazilCovid pivo = vet[(rand() % (fim - inicio + 1))+ inicio];
+    BrazilCovid pivo = vet[(rand() % (fim - inicio + 1)) + inicio];
 
-    while(i < j)
+    while (i < j)
     {
-        while(vet[i].state < pivo.state && i < fim)
+        while (vet[i].state < pivo.state && i < fim)
             i++;
-        while(vet[j].state > pivo.state && j > inicio)
+        while (vet[j].state > pivo.state && j > inicio)
             j--;
 
-        if(i <= j)
+        if (i <= j)
         {
-            swap(vet[i],vet[j]);
+            if (vet[i].state.compare(vet[j].state) == 0) //Se as Siglas já forem iguais
+            {
+                if (vet[i].name.compare(vet[j].name) > 0) //Busco o nome da cidade
+                {
+                    swap(vet[i], vet[j]);
+                }                                    //Troco para a ordem alfabética
+                else if (vet[i].name.compare(vet[j].name) == 0) //Caso seja o mesmo nome
+                {
+                    if (vet[i].date.mounth > vet[j].date.mounth) //Verficarei pelo mês
+                        swap(vet[i], vet[j]);
+                    else if (vet[i].date.mounth == vet[j].date.mounth) //Meses iguais, mudamos pelo dia agora
+                        if (vet[i].date.day > vet[j].date.day)
+                            swap(vet[i], vet[j]);
+                }
+            }
+            else
+            {
+                swap(vet[i], vet[j]); //Troco por Sigla do estado
+            }
+
             i++;
             j--;
         }
     }
-}
 
+    if (j > inicio)
+        quickSort(vet, inicio, j);
+    if (i < fim)
+        quickSort(vet, i, fim);
+}
 
 void troca(BrazilCovid *vet, int i, int j)
 {
