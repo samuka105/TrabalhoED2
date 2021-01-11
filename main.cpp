@@ -10,87 +10,74 @@
 
 //Importando Bibliotecas
 #include <iostream>
-#include "LeitorCovid.h"
-#include "BrazilCovid.h"
+#include <string>
+
+#include "Preprocessador.h"
 
 using namespace std;
 
-void quickSort(BrazilCovid *vet, int inicio, int fim);
-void troca(BrazilCovid *vet, int i, int j);
+void menu();
+
+void limparTela()
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+void menuAuxiliar(char in)
+{
+    Preprocessador* data;
+    switch (in)
+    {
+    case '0':
+        cout << "Finalizando" << endl;
+        exit(0);
+        break;
+    case '1':
+        limparTela();
+        data = new Preprocessador();
+        break;
+    case '2':
+        break;
+    case '3':
+        break;
+    default:
+        menu();
+        break;
+    }
+}
+
+void menu()
+{
+    limparTela();
+    char in;
+
+    while (true)
+    {
+        cout << endl;
+        cout << "\t\t\tMenu Principal" << endl;
+        cout << "[01] Etapa 1" << endl;
+        cout << "[02] Etapa 2" << endl;
+        cout << "[03] Testes" << endl;
+        cout << "[0] Sair. " << endl;
+        cout << endl;
+
+        do
+        {
+            cout << "Selecione uma opcao valida: ";
+            cin >> in;
+        } while (
+            (in < '0' || in > '5') && (in < 'a' || in > 'z'));
+
+        menuAuxiliar(in);
+    }
+}
 
 int main()
 {
-    int n = 1431490;
-    LeitorCovid *leitor = new LeitorCovid();
-
-    BrazilCovid *covid = leitor->getDataset();
-
-    for (int i = 0; i < 200; i++)
-    {
-        cout << "Estado " << covid[i].state << " cidade " << covid[i].name << " dia " << covid[i].date.day << " mes " << covid[i].date.mounth << " casos " << covid[i].cases << endl;
-    }
-    cout << "########" << endl;
-
-    quickSort(covid, 0, 50000);
-
-    for (int i = 0; i < 200; i++)
-    {
-        cout << "Estado " << covid[i].state << " cidade " << covid[i].name << " dia " << covid[i].date.day << " mes " << covid[i].date.mounth << " casos " << covid[i].cases << endl;
-    }
-
+    menu();
     return 0;
-}
-
-void quickSort(BrazilCovid *vet, int inicio, int fim)
-{
-    int i, j;
-    i = inicio;
-    j = fim;
-    BrazilCovid pivo = vet[(rand() % (fim - inicio + 1)) + inicio];
-
-    while (i < j)
-    {
-        while (vet[i].state < pivo.state && i < fim)
-            i++;
-        while (vet[j].state > pivo.state && j > inicio)
-            j--;
-
-        if (i <= j)
-        {
-            if (vet[i].state.compare(vet[j].state) == 0) //Se as Siglas já forem iguais
-            {
-                if (vet[i].name.compare(vet[j].name) > 0) //Busco o nome da cidade
-                {
-                    swap(vet[i], vet[j]);
-                }                                    //Troco para a ordem alfabética
-                else if (vet[i].name.compare(vet[j].name) == 0) //Caso seja o mesmo nome
-                {
-                    if (vet[i].date.mounth > vet[j].date.mounth) //Verficarei pelo mês
-                        swap(vet[i], vet[j]);
-                    else if (vet[i].date.mounth == vet[j].date.mounth) //Meses iguais, mudamos pelo dia agora
-                        if (vet[i].date.day > vet[j].date.day)
-                            swap(vet[i], vet[j]);
-                }
-            }
-            else
-            {
-                swap(vet[i], vet[j]); //Troco por Sigla do estado
-            }
-
-            i++;
-            j--;
-        }
-    }
-
-    if (j > inicio)
-        quickSort(vet, inicio, j);
-    if (i < fim)
-        quickSort(vet, i, fim);
-}
-
-void troca(BrazilCovid *vet, int i, int j)
-{
-    BrazilCovid aux = vet[i];
-    vet[i] = vet[j];
-    vet[j] = aux;
 }
