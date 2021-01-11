@@ -2,10 +2,11 @@
 #define ORDENACAOBASE_H
 
 #include <iostream>
+#include "BrazilCovid.h"
 
 using namespace std;
 
-template <class T>
+
 class OrdenacaoBase
 {
     public:
@@ -37,9 +38,11 @@ class OrdenacaoBase
             return num_trocas;
         }
 
-    private: 
-        long long int num_comparacoes; // Contador de comparações
-        long long int num_trocas; // Contador de trocas
+         bool comparador(BrazilCovid a, BrazilCovid b)
+        {
+            this->num_comparacoes++;
+            return a.cases > b.cases;
+        }
 
          /**
          * Inverte a posição de 2 itens no vetor
@@ -47,13 +50,24 @@ class OrdenacaoBase
          * @param i posição do item 1 no vetor
          * @param j posição do item 2 no vetor
          */
-        void troca(T* vetor, int i, int j)
+        void troca(BrazilCovid* vet, int i, int j)
         {
             num_trocas++;
-            T aux = vetor[i];
-            vetor[i] = vetor[j];
-            vetor[j] = aux;
+            BrazilCovid aux = vet[j];
+            vet[j] = vet[i];
+            vet[i] = aux;
         };
+
+        void aumentaNumTrocas()
+        {
+            this->num_trocas++;
+        }
+
+    private: 
+        long long int num_comparacoes; // Contador de comparações
+        long long int num_trocas; // Contador de trocas
+
+       
 };
 
 #endif // ORDENACAOBASE_H
