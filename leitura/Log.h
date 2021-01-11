@@ -30,7 +30,8 @@ class Log
                 exit(1);
             }
 
-            for(int i = 0; i < tam; i++)
+            arqSaida << "date,state,name,code,cases,deaths" << endl;
+            for(int i = 0; i < tam-1; i++)
             {
                 arqSaida << dataset[i].date.year << "-" <<  dataset[i].date.mounth << "-" <<  dataset[i].date.day << "," <<  dataset[i].state << "," <<  dataset[i].name << "," <<  dataset[i].code << "," << dataset[i].cases << "," << dataset[i].deaths << endl;
             }

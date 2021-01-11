@@ -17,9 +17,9 @@ class QuickSort: protected OrdenacaoBase
         {
             if(inicio < fim)
             {
-                int particao = particao(vetor,inicio,fim);
-                ordernar(vetor,inicio,particao-1);
-                ordernar(vetor,particao+1,fim);
+                int p = particao(vetor,inicio,fim);
+                ordernar(vetor,inicio,p-1);
+                ordernar(vetor,p+1,fim);
             }
         }
     private:
@@ -31,7 +31,7 @@ class QuickSort: protected OrdenacaoBase
 
             for(int j = inicio; j <= fim - 1; j++)
             {
-                if(comparador(vetor,j,pivo))
+                if(comparador(vetor[j],vetor[pivo]))
                 {
                     i++;
                     troca(vetor,i,j);

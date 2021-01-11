@@ -3,6 +3,7 @@
  * main.cpp
  * 
  * #### Comando para rodar ####
+ * g++ *.cpp -o exec && exec.exe
  * 
  * @autor: Yagho Mattos, Samuel Paiva, Jean Felipe, Renan Nunes
  * @version 1.0
@@ -12,7 +13,7 @@
 #include <iostream>
 #include <string>
 
-#include "Preprocessador.h"
+#include "leitura/Preprocessador.h"
 
 using namespace std;
 
