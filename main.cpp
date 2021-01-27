@@ -18,6 +18,7 @@
 
 //Importando Etapas
 #include "Etapas/Etapa1.h"
+#include "Etapas/Etapa2.h"
 #include "Etapas/Etapa3.h"
 
 //Incluindo métodos de ordenação
@@ -73,6 +74,7 @@ void laco()
 void selecionar(int opcao)
 {
     Etapa1* etapa1;
+    Etapa2* etapa2;
     Etapa3* etapa3;
     char chave, chaveSecundaria;
     string nome_do_arquivo = "brazil_covid19_cities.csv";
@@ -116,7 +118,8 @@ void selecionar(int opcao)
         delete etapa1;
         break;
     case 2:
-
+        etapa2 = new Etapa2();
+        etapa2->realizaTestes();
         break;
     case 3:
         etapa3 = new Etapa3();

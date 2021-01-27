@@ -9,6 +9,8 @@
 #include <chrono>
 #include <random>
 
+#include "../BrazilCovid.h"
+
 using namespace std;
 
 class LeitorBase
@@ -96,6 +98,14 @@ public:
         std::chrono::duration<double> elapsed_seconds = end - start;
         double duracao = elapsed_seconds.count();
         return duracao;
+    }
+
+    BrazilCovid *copiaVetor(BrazilCovid *vetor, int tam)
+    {
+        BrazilCovid *aux = new BrazilCovid[tam];
+        for (int i = 0; i < tam; i++)
+            aux[i] = vetor[i];
+        return aux;
     }
 
 private:

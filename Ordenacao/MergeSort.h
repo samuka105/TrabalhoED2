@@ -23,17 +23,20 @@ public:
         int meio;
         if (inicio < fim)
         {
+            cout << "| " << contador << endl;
+            contador++;
             meio = (inicio + fim) / 2;
             ordernar(vetor, inicio, meio);
             ordernar(vetor, meio + 1, fim);
             intercala(vetor, inicio, meio, fim);
-        }
+        } 
     }
 
+    int contador = 0;
 private:
     void intercala(BrazilCovid *vetor, int inicio, int meio, int fim)
     {
-        /*BrazilCovid aux[fim + 1];
+        BrazilCovid aux[fim + 1];
         int inicioVetorA, inicioVetorB, livre;
         inicioVetorA = inicio;
         inicioVetorB = meio + 1;
@@ -73,12 +76,11 @@ private:
         for (int i = inicio; i <= fim; i++)
         {
             vetor[i] = aux[i];
-        }*/
-
-        
+        }
 
     }
 
+    
 };
 
 #endif // MERGESORT_H

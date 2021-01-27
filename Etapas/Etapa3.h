@@ -32,7 +32,7 @@ public:
         while (selecao != 0)
         {
             selecao = menu();
-            if (selecao >= 0 && selecao < 4)
+            if (selecao >= 0 && selecao < 7)
                 selecionar(selecao);
         }
 
@@ -102,6 +102,8 @@ public:
             leitor->numRegistros(n);
             leitor->leituraPosProcessado();
             dataset = leitor->getDataset();
+            free(dataset);
+            dataset = nullptr;
             delete leitor;
             break;
         case 3:
@@ -122,11 +124,16 @@ public:
             num_trocas = 0;
             break;
         case 4:
+            leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+            leitor->numRegistros(1000);
+            leitor->leituraPosProcessado();
+            dataset = leitor->getDataset();
+            copiaLocal = copiaVetor(dataset,1000);
             cout << "QuickSort: " << endl;
             quick = new QuickSort();
-            timerStart();
-            quick->ordernar(dataset, 0, n - 1);
-            tempo = timerEnd();
+            //timerStart();
+            quick->ordernar(copiaLocal, 0, n - 1);
+            //tempo = timerEnd();
             num_trocas = quick->getNumTrocas();
             num_comparacoes = quick->getNumComparacoes();
             cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
@@ -136,7 +143,7 @@ public:
             cout << "RadixSort: " << endl;
             radix = new RadixSort();
             timerStart();
-            radix->ordernar(dataset,n);
+            radix->ordernar(dataset, n);
             tempo = timerEnd();
             num_trocas = radix->getNumTrocas();
             num_comparacoes = radix->getNumComparacoes();
@@ -172,6 +179,7 @@ public:
 
 private:
     BrazilCovid *dataset;
+    BrazilCovid* copiaLocal;
 };
 
 #endif // ETAPA3_H
