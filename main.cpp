@@ -96,7 +96,7 @@ void selecionar(int opcao)
             cin >> nome_do_arquivo;
             cout << "\nDeseja informar o número de elementos à ser lido?(s/n): ";
             cin >> chaveSecundaria;
-            if (chaveSecundaria == 's' || chaveSecundaria == 'n')
+            if (chaveSecundaria == 's' || chaveSecundaria == 'S')
             {
                 cout << "Número: ";
                 cin >> n;

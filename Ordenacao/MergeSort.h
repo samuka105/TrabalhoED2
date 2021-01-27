@@ -33,7 +33,7 @@ public:
 private:
     void intercala(BrazilCovid *vetor, int inicio, int meio, int fim)
     {
-        BrazilCovid aux[fim + 1];
+        /*BrazilCovid aux[fim + 1];
         int inicioVetorA, inicioVetorB, livre;
         inicioVetorA = inicio;
         inicioVetorB = meio + 1;
@@ -73,7 +73,10 @@ private:
         for (int i = inicio; i <= fim; i++)
         {
             vetor[i] = aux[i];
-        }
+        }*/
+
+        
+
     }
 
 };

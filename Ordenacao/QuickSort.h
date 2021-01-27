@@ -76,7 +76,7 @@ private:
 
     bool comparadorPre(BrazilCovid &a, BrazilCovid &b)
     {
-        if (a.state.compare(b.state) < 0) //RJ < SP
+        if (a.state.compare(b.state) < 0) //RJ < SP 
             return true;
         else if (a.state.compare(b.state) == 0 && a.name.compare(b.name) < 0) //RJ == RJ e Barra do Piraí < Volta Redonda
             return true;

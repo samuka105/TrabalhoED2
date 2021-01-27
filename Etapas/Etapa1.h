@@ -20,14 +20,14 @@ class Etapa1 : public LeitorBase
 public:
     Etapa1(string nome_arquivo, int n)
     {
-        
+
         n = n;
         LeitorCovid *leitura = new LeitorCovid(nome_arquivo);
         leitura->numRegistros(n);
         leitura->leituraPreProcessado();
         dataset = leitura->getDataset();
         QuickSort *quick = new QuickSort();
-        quick->ordernarPre(dataset, 0, n-1);
+        quick->ordernarPre(dataset, 0, n - 1);
         corrigeCasos(dataset);
         caminhoSaida = this->getDiretorio() + "brazil_covid19_cities_processado.csv";
         Log::getInstance().iniciaArquivoSaida(caminhoSaida);
@@ -44,7 +44,7 @@ public:
             line += to_string(dataset[i].cases) + ",";
             line += to_string(dataset[i].deaths);
 
-            Log::getInstance().line(line);
+            Log::getInstance().lineArquivo(line);
         }
 
         delete leitura;
