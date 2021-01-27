@@ -54,13 +54,15 @@ public:
         double tempo;
         int num_comparacoes, num_trocas;
 
-        switch (opcao)
+        //switch (opcao)
+        //{
+        if (opcao == 0)
         {
-        case 0:
             cout << "Finalizando" << endl;
             exit(0);
-            break;
-        case 1:
+        }
+        else if (opcao == 1)
+        {
             leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
             if (n == 0)
                 n = 100;
@@ -94,8 +96,9 @@ public:
             }
             free(dataset);
             dataset = nullptr;
-            break;
-        case 2:
+        }
+        else if (opcao == 2)
+        {
             leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
             cout << "Informe o numero de registros a ser importado: ";
             cin >> n;
@@ -105,8 +108,9 @@ public:
             free(dataset);
             dataset = nullptr;
             delete leitor;
-            break;
-        case 3:
+        }
+        else if (opcao == 3)
+        {
             cout << "MergeSort: " << endl;
             merge = new MergeSort();
             cout << "Inicio da ordenacao " << endl;
@@ -122,8 +126,9 @@ public:
             tempo = 0;
             num_comparacoes = 0;
             num_trocas = 0;
-            break;
-        case 4:
+        }
+        else if (opcao == 4)
+        {
             leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
             leitor->numRegistros(1000);
             leitor->leituraPosProcessado();
@@ -138,8 +143,10 @@ public:
             num_comparacoes = quick->getNumComparacoes();
             cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
             delete quick;
-            break;
-        case 5:
+
+        }
+        else if (opcao == 5)
+        {
             cout << "RadixSort: " << endl;
             radix = new RadixSort();
             timerStart();
@@ -149,11 +156,14 @@ public:
             num_comparacoes = radix->getNumComparacoes();
             cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
             delete radix;
-            break;
-        default:
-            menu();
-            break;
+
         }
+        else
+        {
+            cout<<"opçao invalida, digite novamente um valor valido"<<endl;
+            menu();
+        }
+        //}
     }
 
     int menu()
