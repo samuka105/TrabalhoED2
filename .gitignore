@@ -42,6 +42,7 @@
 *.app
 
 # Pastas para ignorar
-/Dataset
+*.csv
+*.exe
 
 # End of https://www.toptal.com/developers/gitignore/api/c++
