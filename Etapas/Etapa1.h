@@ -26,9 +26,12 @@ public:
         leitura->numRegistros(n);
         leitura->leituraPreProcessado();
         dataset = leitura->getDataset();
+        cout<<"inicializando ordenação"<<endl;
         QuickSort *quick = new QuickSort();
         quick->ordernarPre(dataset, 0, n - 1);
+        cout<<"ordenação finalizada operando correção de casos"<<endl;
         corrigeCasos(dataset);
+        cout<< "correção finalizada....fechando arquivo"<<endl;
         caminhoSaida = this->getDiretorio() + "brazil_covid19_cities_processado.csv";
         Log::getInstance().iniciaArquivoSaida(caminhoSaida);
 
@@ -46,7 +49,7 @@ public:
 
             Log::getInstance().lineArquivo(line);
         }
-
+        cout<<"Arquivo fechado"<<endl;
         delete leitura;
     }
 
