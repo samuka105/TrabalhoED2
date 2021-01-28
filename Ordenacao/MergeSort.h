@@ -18,21 +18,18 @@ public:
     };
     ~MergeSort(){};
 
-    void ordernar(BrazilCovid *vetor, int inicio, int fim)
+    void ordenar(BrazilCovid *vetor, int inicio, int fim)
     {
         int meio;
         if (inicio < fim)
         {
-            cout << "| " << contador << endl;
-            contador++;
             meio = (inicio + fim) / 2;
-            ordernar(vetor, inicio, meio);
-            ordernar(vetor, meio + 1, fim);
+            ordenar(vetor, inicio, meio);
+            ordenar(vetor, meio + 1, fim);
             intercala(vetor, inicio, meio, fim);
         } 
     }
 
-    int contador = 0;
 private:
     void intercala(BrazilCovid *vetor, int inicio, int meio, int fim)
     {

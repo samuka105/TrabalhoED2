@@ -14,6 +14,8 @@
 #include "../Ordenacao/QuickSort.h"
 #include "../Ordenacao/MergeSort.h"
 #include "../Ordenacao/RadixSort.h"
+#include "../Ordenacao/ShellSort.h"
+#include "../Ordenacao/HeapSort.h"
 
 using namespace std;
 
@@ -32,7 +34,7 @@ public:
         while (selecao != 0)
         {
             selecao = menu();
-            if (selecao >= 0 && selecao < 7)
+            if (selecao >= 0 && selecao < 8)
                 selecionar(selecao);
         }
 
@@ -46,13 +48,6 @@ public:
         string line;
         char ch;
         int n;
-
-        RadixSort *radix;
-        QuickSort *quick;
-        MergeSort *merge;
-
-        double tempo;
-        int num_comparacoes, num_trocas;
 
         switch (opcao)
         {
@@ -105,55 +100,246 @@ public:
             free(dataset);
             dataset = nullptr;
             delete leitor;
+            free(dataset);
+            dataset = nullptr;
             break;
         case 3:
-            cout << "MergeSort: " << endl;
-            merge = new MergeSort();
-            cout << "Inicio da ordenacao " << endl;
-            timerStart();
-            cout << "Comecou a ordenacao " << endl;
-            merge->ordernar(dataset, 0, n - 1);
-            tempo = timerEnd();
-            num_trocas = merge->getNumTrocas();
-            cout << "Final da ordenacao " << endl;
-            num_comparacoes = merge->getNumComparacoes();
-            cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
-            delete merge;
-            tempo = 0;
-            num_comparacoes = 0;
-            num_trocas = 0;
+            mergeSort();
             break;
         case 4:
-            leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
-            leitor->numRegistros(1000);
-            leitor->leituraPosProcessado();
-            dataset = leitor->getDataset();
-            copiaLocal = copiaVetor(dataset,1000);
-            cout << "QuickSort: " << endl;
-            quick = new QuickSort();
-            //timerStart();
-            quick->ordernar(copiaLocal, 0, n - 1);
-            //tempo = timerEnd();
-            num_trocas = quick->getNumTrocas();
-            num_comparacoes = quick->getNumComparacoes();
-            cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
-            delete quick;
+            quickSort();
             break;
         case 5:
-            cout << "RadixSort: " << endl;
-            radix = new RadixSort();
-            timerStart();
-            radix->ordernar(dataset, n);
-            tempo = timerEnd();
-            num_trocas = radix->getNumTrocas();
-            num_comparacoes = radix->getNumComparacoes();
-            cout << "Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
-            delete radix;
+            radixSort();
+            break;
+        case 6:
+            shellSort();
+            break;
+        case 7:
+            heapSort();
             break;
         default:
             menu();
             break;
         }
+    }
+
+    void mergeSort()
+    {
+        int n;
+        char ch;
+        cout << "O Algoritmo mergeSort tem apresentado erro para valores acima de 20.000" << endl;
+        cout << "Informe o numero de registros a ser importado: ";
+        cin >> n;
+
+        LeitorCovid *leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+        leitor->numRegistros(n);
+        leitor->leituraPosProcessado();
+        dataset = leitor->getDataset();
+        BrazilCovid *copiaLocal = copiaVetor(dataset, n);
+
+        MergeSort *merge;
+        merge = new MergeSort();
+        timerStart();
+        merge->ordenar(dataset, 0, n - 1);
+        double tempo = timerEnd();
+        int num_trocas = merge->getNumTrocas();
+        int num_comparacoes = merge->getNumComparacoes();
+        cout << "MergeSort, Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
+        cout << "Salvar(s/n)? ";
+        cin >> ch;
+        if (ch == 's')
+        {
+            Log::getInstance().iniciaArquivoSaida("saidas" + getDirSep() + "mergeSort-teste.csv");
+            Log::getInstance().lineArquivo("Tempo,Algoritmo,Comparacoes,Trocas,N");
+
+            string line = "";
+            line += "MergeSort,";
+            line += to_string(tempo) + ",";
+            line += to_string(num_comparacoes) + ",";
+            line += to_string(num_trocas) + ",";
+            line += to_string(n);
+
+            Log::getInstance().lineArquivo(line);
+            Log::getInstance().fechaArqSaida();
+        }
+        delete merge;
+        delete[] dataset;
+        delete[] copiaLocal;
+    }
+
+    void quickSort()
+    {
+        int n;
+        char ch;
+        cout << "Informe o numero de registros a ser importado: ";
+        cin >> n;
+
+        LeitorCovid *leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+        leitor->numRegistros(n);
+        leitor->leituraPosProcessado();
+        dataset = leitor->getDataset();
+        BrazilCovid *copiaLocal = copiaVetor(dataset, n);
+
+        QuickSort *quick;
+        quick = new QuickSort();
+        timerStart();
+        quick->ordenar(dataset, 0, n - 1);
+        double tempo = timerEnd();
+        int num_trocas = quick->getNumTrocas();
+        int num_comparacoes = quick->getNumComparacoes();
+        cout << "QuickSort, Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
+        cout << "Salvar(s/n)? ";
+        cin >> ch;
+        if (ch == 's')
+        {
+            Log::getInstance().iniciaArquivoSaida("saidas" + getDirSep() + "quickSort-teste.csv");
+            Log::getInstance().lineArquivo("Tempo,Algoritmo,Comparacoes,Trocas,N");
+
+            string line = "";
+            line += "QuickSort,";
+            line += to_string(tempo) + ",";
+            line += to_string(num_comparacoes) + ",";
+            line += to_string(num_trocas) + ",";
+            line += to_string(n);
+
+            Log::getInstance().lineArquivo(line);
+            Log::getInstance().fechaArqSaida();
+        }
+        delete quick;
+        delete[] dataset;
+        delete[] copiaLocal;
+    }
+
+      void heapSort()
+    {
+        int n;
+        char ch;
+        cout << "Informe o numero de registros a ser importado: ";
+        cin >> n;
+
+        LeitorCovid *leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+        leitor->numRegistros(n);
+        leitor->leituraPosProcessado();
+        dataset = leitor->getDataset();
+        BrazilCovid *copiaLocal = copiaVetor(dataset, n);
+
+        HeapSort *heap;
+        heap = new HeapSort();
+        timerStart();
+        cout << "inicia o heapSort" << endl;
+        heap->ordenar(dataset, n-1);
+        double tempo = timerEnd();
+        int num_trocas = heap->getNumTrocas();
+        int num_comparacoes = heap->getNumComparacoes();
+        cout << "HeapSort, Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
+        cout << "Salvar(s/n)? ";
+        cin >> ch;
+        if (ch == 's')
+        {
+            Log::getInstance().iniciaArquivoSaida("saidas" + getDirSep() + "heapSort-teste.csv");
+            Log::getInstance().lineArquivo("Tempo,Algoritmo,Comparacoes,Trocas,N");
+
+            string line = "";
+            line += "HeapSort,";
+            line += to_string(tempo) + ",";
+            line += to_string(num_comparacoes) + ",";
+            line += to_string(num_trocas) + ",";
+            line += to_string(n);
+
+            Log::getInstance().lineArquivo(line);
+            Log::getInstance().fechaArqSaida();
+        }
+        delete heap;
+        delete[] dataset;
+        delete[] copiaLocal;
+    }
+
+    void radixSort()
+    {
+        int n;
+        char ch;
+        cout << "Informe o numero de registros a ser importado: ";
+        cin >> n;
+
+        LeitorCovid *leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+        leitor->numRegistros(n);
+        leitor->leituraPosProcessado();
+        dataset = leitor->getDataset();
+        BrazilCovid *copiaLocal = copiaVetor(dataset, n);
+
+        cout << "RadixSort com 10 & 100: " << endl;
+        RadixSort *radix;
+        radix = new RadixSort();
+        timerStart();
+        radix->ordenar(dataset, n);
+        double tempo = timerEnd();
+        int num_trocas = radix->getNumTrocas();
+        int num_comparacoes = radix->getNumComparacoes();
+        cout << "RadixSort, Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
+        cout << "Salvar(s/n)? ";
+        cin >> ch;
+        if (ch == 's')
+        {
+            Log::getInstance().iniciaArquivoSaida("saidas" + getDirSep() + "radixSort-teste.csv");
+            Log::getInstance().lineArquivo("Tempo,Algoritmo,Comparacoes,Trocas,N");
+
+            string line = "";
+            line += "RadixSort,";
+            line += to_string(tempo) + ",";
+            line += to_string(num_comparacoes) + ",";
+            line += to_string(num_trocas) + ",";
+            line += to_string(n);
+
+            Log::getInstance().lineArquivo(line);
+            Log::getInstance().fechaArqSaida();
+        }
+        delete radix;
+        delete[] dataset;
+        delete[] copiaLocal;
+    }
+
+     void shellSort()
+    {
+        int n;
+        char ch;
+        cout << "Informe o numero de registros a ser importado: ";
+        cin >> n;
+
+        LeitorCovid *leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
+        leitor->numRegistros(n);
+        leitor->leituraPosProcessado();
+        dataset = leitor->getDataset();
+        BrazilCovid *copiaLocal = copiaVetor(dataset, n);
+
+        ShellShort *shell;
+        shell = new ShellShort();
+        timerStart();
+        shell->ordenar(dataset,n);
+        double tempo = timerEnd();
+        int num_trocas = shell->getNumTrocas();
+        int num_comparacoes = shell->getNumComparacoes();
+        cout << "ShellShort, Ordenado em " << tempo << " segundos, com " << num_comparacoes << " comparacoes e " << num_trocas << " trocas" << endl;
+        cout << "Salvar(s/n)? ";
+        cin >> ch;
+        if (ch == 's')
+        {
+            Log::getInstance().iniciaArquivoSaida("saidas" + getDirSep() + "shellSort-teste.csv");
+            Log::getInstance().lineArquivo("Tempo,Algoritmo,Comparacoes,Trocas,N");
+
+            string line = "";
+            line += "ShellShort,";
+            line += to_string(tempo) + ",";
+            line += to_string(num_comparacoes) + ",";
+            line += to_string(num_trocas) + ",";
+            line += to_string(n);
+
+            Log::getInstance().lineArquivo(line);
+            Log::getInstance().fechaArqSaida();
+        }
+        delete shell;
+        delete[] dataset;
+        delete[] copiaLocal;
     }
 
     int menu()
@@ -168,7 +354,8 @@ public:
         cout << "[3] MergeSort" << endl;
         cout << "[4] QuickSort" << endl;
         cout << "[5] RadixSort" << endl;
-        cout << "[6] QuickSort Mediana" << endl;
+        cout << "[6] ShellSort" << endl;
+        cout << "[7] HeapSort" << endl;
         cout << "[0] Sair. " << endl
              << endl;
         cout << "*----------------------------------------------------------------------*" << endl;
@@ -179,7 +366,7 @@ public:
 
 private:
     BrazilCovid *dataset;
-    BrazilCovid* copiaLocal;
+    BrazilCovid *copiaLocal;
 };
 
 #endif // ETAPA3_H

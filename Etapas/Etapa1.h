@@ -27,7 +27,7 @@ public:
         leitura->leituraPreProcessado();
         dataset = leitura->getDataset();
         QuickSort *quick = new QuickSort();
-        quick->ordernarPre(dataset, 0, n - 1);
+        quick->ordenarPre(dataset, 0, n - 1);
         corrigeCasos(dataset);
         caminhoSaida = this->getDiretorio() + "brazil_covid19_cities_processado.csv";
         Log::getInstance().iniciaArquivoSaida(caminhoSaida);

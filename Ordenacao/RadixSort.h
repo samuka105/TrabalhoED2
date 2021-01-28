@@ -17,7 +17,7 @@ class RadixSort: public OrdenacaoBase
     };
     ~RadixSort(){};
 
-    void ordernar(BrazilCovid* vetor,int tam)
+    void ordenar(BrazilCovid* vetor,int tam)
     {
         BrazilCovid m = getMax(vetor,tam);
         for(long long int exp = 1; m.cases/exp > 0; exp *= 10)

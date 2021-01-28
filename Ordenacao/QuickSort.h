@@ -17,23 +17,23 @@ public:
     };
     ~QuickSort(){};
 
-    void ordernar(BrazilCovid *vetor, int inicio, int fim)
+    void ordenar(BrazilCovid *vetor, int inicio, int fim)
     {
         if (inicio < fim)
         {
             int p = particao(vetor, inicio, fim);
-            ordernar(vetor, inicio, p - 1);
-            ordernar(vetor, p + 1, fim);
+            ordenar(vetor, inicio, p - 1);
+            ordenar(vetor, p + 1, fim);
         }
     }
 
-    void ordernarPre(BrazilCovid *vetor, int inicio, int fim)
+    void ordenarPre(BrazilCovid *vetor, int inicio, int fim)
     {
         if (inicio < fim)
         {
             int p = particaoPre(vetor, inicio, fim);
-            ordernarPre(vetor, inicio, p - 1);
-            ordernarPre(vetor, p + 1, fim);
+            ordenarPre(vetor, inicio, p - 1);
+            ordenarPre(vetor, p + 1, fim);
         }
     }
 
