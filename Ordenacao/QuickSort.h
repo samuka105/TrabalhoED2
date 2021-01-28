@@ -41,11 +41,11 @@ private:
     int particao(BrazilCovid *vetor, int inicio, int fim)
     {
         int i = inicio - 1;
-        int pivo = fim;
+        BrazilCovid pivo = vetor[(inicio + fim)/2];
 
         for (int j = inicio; j <= fim - 1; j++)
         {
-            if (comparador(vetor[j], vetor[pivo]))
+            if (comparador(vetor[j], pivo))
             {
                 i++;
                 troca(vetor, i, j);
@@ -59,11 +59,11 @@ private:
     int particaoPre(BrazilCovid *vetor, int inicio, int fim)
     {
         int i = inicio - 1;
-        int pivo = fim;
+        BrazilCovid pivo = vetor[(inicio + fim)/2];
 
         for (int j = inicio; j <= fim - 1; j++)
         {
-            if (comparadorPre(vetor[j], vetor[pivo]))
+            if (comparadorPre(vetor[j], pivo))
             {
                 i++;
                 troca(vetor, i, j);

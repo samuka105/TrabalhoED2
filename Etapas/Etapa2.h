@@ -49,7 +49,7 @@ public:
                 HeapSort *heap = new HeapSort();
                 heap->ordenar(copiaLocal, n - 1);
                 tempo = timerEnd();
-                cout << "MERGESORT, em " << tempo << " segundos, NUM TROCAS " << heap->getNumTrocas() << " NUM COMPARACOES " << heap->getNumComparacoes() << endl;
+                cout << "HEAPSORT, em " << tempo << " segundos, NUM TROCAS " << heap->getNumTrocas() << " NUM COMPARACOES " << heap->getNumComparacoes() << endl;
 
                 line = "";
                 line += "HeapSort,";
@@ -61,6 +61,7 @@ public:
                 Log::getInstance().lineArquivo(line);
 
                 delete[] copiaLocal;
+                copiaLocal = nullptr;
                 delete heap;
 
                 copiaLocal = copiaVetor(data, n);

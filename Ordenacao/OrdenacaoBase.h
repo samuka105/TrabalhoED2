@@ -42,7 +42,7 @@ public:
     bool comparador(BrazilCovid a, BrazilCovid b)
     {
         this->num_comparacoes++;
-        return a.cases < b.cases;
+        return a.cases <= b.cases; 
     }
 
     /**
