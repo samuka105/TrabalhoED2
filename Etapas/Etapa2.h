@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * Etapa2.h
+ * Propósito: Classe que realiza a segunda Etapa do trabalho
+ * 
+*/
 #ifndef LEITOR2_H
 #define LEITOR2_H
 
@@ -21,8 +27,17 @@ public:
     Etapa2(){};
     ~Etapa2(){};
 
+    /**
+     * Função que realiza os testes
+    */
     void realizaTestes()
     {
+        cout << endl;
+        cout << "\t\t\tATENCAO" << endl;
+        cout << "*--------------------------------*--------------------------------*" << endl;
+        cout << "Existe a possibilidade do algoritmo QuickSort nao funcionar para registros maiores que 100.000, causando o fechamento do programa" << endl;
+        cout << "A Hipotese trabalhada pelo grupo e de que isso se deve ao tipo de objeto utilizado para armazenamento dos dados." << endl;
+        cout << "Entretando, isso essa ocorrencia pode se provar erronea ja que o mesmo algoritmo e utilizado para a ordenacao dos 1.431.490 na etapa de pre processamento" << endl;
         string line = "";
         int numTestes = 5;
         int numRegistros = 5;
@@ -112,7 +127,7 @@ public:
                 cout << "ShellSort, em " << tempo << " segundos, NUM TROCAS " << shell->getNumTrocas() << " NUM COMPARACOES " << shell->getNumComparacoes() << endl;
 
                 line = "";
-                line += "ShellShort,";
+                line += "ShellSort,";
                 line += to_string(tempo) + ",";
                 line += to_string(shell->getNumComparacoes()) + ",";
                 line += to_string(shell->getNumTrocas()) + ",";

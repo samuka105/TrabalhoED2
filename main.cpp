@@ -3,10 +3,11 @@
  * main.cpp
  * 
  * #### Comando para rodar ####
- * g++ main.cpp -o main && main.exe
+ * Linux/Mac: clear && g++ -std=c++11 main.cpp -o main && ./main
+ * Windows: cls && g++ -std=c++11 main.cpp -o main && main.exe
  * 
  * @autor: Yagho Mattos, Samuel Paiva, Jean Felipe, Renan Nunes
- * @version 1.0
+ * @version 2.0
 */
 
 //Importando Bibliotecas
@@ -14,17 +15,14 @@
 #include <time.h>
 #include <chrono>
 
+//Classes de Entidade
 #include "BrazilCovid.h"
+#include "Date.h"
 
 //Importando Etapas
 #include "Etapas/Etapa1.h"
 #include "Etapas/Etapa2.h"
 #include "Etapas/Etapa3.h"
-
-//Incluindo métodos de ordenação
-#include "Ordenacao/MergeSort.h"
-#include "Ordenacao/QuickSort.h"
-#include "Ordenacao/RadixSort.h"
 
 using namespace std;
 
@@ -56,6 +54,10 @@ int menu()
     return opcao;
 }
 
+/**
+ * Looping que garante o funcionamento do menu
+ * 
+*/
 void laco()
 {
     int selecao = 1;
@@ -63,7 +65,7 @@ void laco()
     while (selecao != 0)
     {
         selecao = menu();
-        if (selecao >= 0 && selecao < 4)
+        if (selecao >= 0 && selecao < 4) //Aceita apenas 4 entradas de inteiros
             selecionar(selecao);
     }
 
@@ -71,6 +73,9 @@ void laco()
     return;
 }
 
+/**
+ * Função de Seleção do da Opção de Menu
+*/
 void selecionar(int opcao)
 {
     Etapa1* etapa1;
@@ -88,7 +93,7 @@ void selecionar(int opcao)
         break;
     case 1:
         limparTela();
-        cout << "Deseja Digitar o caminho do arquivo(s/n)? ";
+        cout << "Deseja Digitar o nome do arquivo(s/n)? ";
         cin >> chave;
         if (chave == 's' || chave == 'S')
         {
@@ -131,6 +136,9 @@ void selecionar(int opcao)
     }
 }
 
+/**
+ * Função Responsável por limpar a tela do terminal, tanto no windows quanto no linux
+*/
 void limparTela()
 {
 #ifdef _WIN32

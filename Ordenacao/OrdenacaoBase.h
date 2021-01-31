@@ -1,3 +1,8 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * Date.h
+ * Propósito: Implementação dos métodos base comuns a todos os algoritmos de ordenação
+*/
 #ifndef ORDENACAOBASE_H
 #define ORDENACAOBASE_H
 

@@ -1,3 +1,8 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * Date.h
+ * Propósito: Armazenar as datas dos casos presentes no arquivo csv escolhido
+*/
 #ifndef DATE_H
 #define DATE_H
 

@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * LeitorBase.h
+ * Propósito: Classe com os métodos básicos necessários à leitura do dataset
+ * 
+*/
 #ifndef LEITORBASE_H
 #define LEITORBASE_H
 
@@ -19,6 +25,9 @@ public:
     LeitorBase(){};
     ~LeitorBase(){};
 
+    /**
+     * Retorna o caractere separador do diretório do sistema
+    */
     string getDirSep()
     {
 #ifdef _WIN32
@@ -28,6 +37,9 @@ public:
 #endif
     }
 
+    /**
+     * Acessa o diretório do sistema especificado para o dataset
+    */
     string getDiretorio()
     {
         this->caminho_diretorio_cpp = "";
@@ -68,12 +80,21 @@ public:
         return v;
     }
 
+    /**
+    * Gera a semente para o leitor randomico
+    * @return string
+    */
     void gerarSemente()
     {
         semente = time(NULL);
         generator.seed(semente);
     }
 
+    /**
+    * Obtem um numero aleatorio de 0 ao valor enviado por parametro
+    * @param maxRand
+    * @return int
+    */
     int getRand(int maxRand)
     {
         uniform_int_distribution<int> distribuition(0, maxRand);
@@ -100,6 +121,9 @@ public:
         return duracao;
     }
 
+    /**
+     * Realiza a cópia do vetor para outro vetor, necessário para os métodos de ordenação
+    */
     BrazilCovid *copiaVetor(BrazilCovid *vetor, int tam)
     {
         BrazilCovid *aux = new BrazilCovid[tam];

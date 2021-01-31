@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * HeapSort.h
+ * Propósito: Implementação do algoritmo HeapSort
+ * Fonte: https://pt.wikipedia.org/wiki/Heapsort
+*/
 #ifndef HEAPSORT_H
 #define HEAPSORT_H
 
@@ -12,10 +18,15 @@ class HeapSort : public OrdenacaoBase
 public:
     HeapSort()
     {
-        this->resetContadores();
+        this->resetContadores(); //Reseta os contadores garantindo que o valor inicial seja sempre zero
     }
     ~HeapSort() {}
 
+    /**
+     * Ordenação para os tipos de dados do dataset 
+     * @param vetor: Vetor de Objetos
+     * @param n: Tamanho do Vetor de Objetos
+    */
     void ordenar(BrazilCovid *vetor, int n)
     {
         int i = n / 2, pai, filho;

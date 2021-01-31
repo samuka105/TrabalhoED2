@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * RadixSort.h
+ * Propósito: Implementação do algoritmo QuickSort
+ * Fonte: https://pt.wikipedia.org/wiki/Radix_sort
+*/
 #ifndef RADIXSORT_H
 #define RADIXSORT_H
 
@@ -13,10 +19,15 @@ class RadixSort: public OrdenacaoBase
 
   public:
     RadixSort(){
-        this->resetContadores();
+        this->resetContadores(); //Reseta os contadores garantindo que o valor inicial seja sempre zero
     };
     ~RadixSort(){};
 
+      /**
+     * Ordenação para os tipos de dados do dataset 
+     * @param vetor: Vetor de Objetos
+     * @param tam: Tamanho do vetor de Objetos
+    */
     void ordenar(BrazilCovid* vetor,int tam)
     {
         BrazilCovid m = getMax(vetor,tam);
@@ -26,6 +37,13 @@ class RadixSort: public OrdenacaoBase
         }
     }
 private:
+
+    /**
+     * Obtem o maior valor em um vetor
+     * @param vetor: vetor
+     * @param tam: tamanho do vetor
+     * @return maior valor
+     */
     BrazilCovid getMax(BrazilCovid* vetor,int tam)
     {
         BrazilCovid mx = vetor[0];
@@ -40,6 +58,12 @@ private:
         return mx;
     }
 
+     /**
+     * Função que realiza o countsort para o digito atual no exp
+     * @param vetor: vetor a ser ordenado
+     * @param tam: tamanho do vetor
+     * @param exp: digito atual sendo ordenado
+     */
     void countSort(BrazilCovid* vetor,int tam,int exp)
     {
         BrazilCovid* output = new BrazilCovid[tam];

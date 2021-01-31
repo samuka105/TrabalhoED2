@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * Log.h
+ * Propósito: Classe com os métodos para a impressão dos arquivos
+ * Classe Baseada em códigos anteriores da disciplina
+*/
 #ifndef LOG_H
 #define LOG_H
 

@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * Etapa1.h
+ * Propósito: Classe que realiza a primeira Etapa do trabalho
+ * 
+*/
 #ifndef ETAPA1_H
 #define ETAPA1_H
 
@@ -21,19 +27,25 @@ public:
     Etapa1(string nome_arquivo, int n)
     {
 
-        n = n;
+        n = n; //Número de Registros a ser lido
         LeitorCovid *leitura = new LeitorCovid(nome_arquivo);
         leitura->numRegistros(n);
         leitura->leituraPreProcessado();
+
         dataset = leitura->getDataset();
-        QuickSort *quick = new QuickSort();
+
+        QuickSort *quick = new QuickSort(); //Ordenando com o QuicSort
         quick->ordenarPre(dataset, 0, n - 1);
-        corrigeCasos(dataset);
+        delete quick;
+
+        corrigeCasos(dataset); //Corrigindo casos do dataset
+
         caminhoSaida = this->getDiretorio() + "brazil_covid19_cities_processado.csv";
         Log::getInstance().iniciaArquivoSaida(caminhoSaida);
 
         Log::getInstance().lineArquivo("date,state,name,code,cases,deaths");
 
+        // For responsável por Imprimir no arquivo de saida
         for (int i = 0; i < n; i++)
         {
             string line = "";
@@ -60,6 +72,12 @@ private:
     string caminhoSaida;
     int n;
 
+    /**
+     * Função responsável por transformar os casos de casos acumulados para casos diários,
+     * Há um erro no dataset que causa a existência de casos negativos. Por ser tratar de vidas, se a necessidade de transformar esses casos 
+     * em casos reais, alterando as ocorrências de "-1" para "0"
+     * @param vet: Vetor de Objetos
+    */
     void corrigeCasos(BrazilCovid *vet)
     {
         for (int i = n; i > 0; i--)

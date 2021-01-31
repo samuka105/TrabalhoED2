@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * LeitorCovid.h
+ * Propósito: Classe com os métodos para a leitura e pre-processamento do dataset
+ * 
+*/
 #ifndef LEITORCOVID_H
 #define LEITORCOVID_H
 
@@ -24,11 +30,19 @@ public:
         n = 0;
     };
 
+    /**
+     * Pega o número de registros à ser lido do dataset
+     * @param m: numero de registros
+    */
     void numRegistros(int m)
     {
         this->n = m;
     }
 
+    /**
+     * Chama o método de leitura do arquivo pré processado
+     * brazil_covid19_cities.csv
+    */
     void leituraPreProcessado()
     {
         timerStart();
@@ -37,6 +51,10 @@ public:
         cout << "Leitura realizada em " << fim << " segundos, " << n << " registros lidos" << endl;
     }
 
+    /**
+     * Chama o método de leitura do arquivo pós processado
+     * brazil_covid19_cities_processado.csv
+    */
     void leituraPosProcessado()
     {
         timerStart();
@@ -47,6 +65,10 @@ public:
 
     ~LeitorCovid(){};
 
+    /**
+     * Retorna o dataset lido
+     * @return BrazilCovid
+    */
     BrazilCovid *getDataset()
     {
         return dataset;
@@ -60,6 +82,10 @@ private:
     BrazilCovid *dataset;
     string caminho_arquivo;
 
+    /**
+     * Converte um tipo string para inteiro
+     * @param s: String
+    */
     int strToInt(string s)
     {
         int i = stoi(s);
@@ -72,6 +98,10 @@ private:
         return i;
     }
 
+    /**
+     * Converte um tipo string para o tipo criado Date
+     * @param s: string a ser convertida
+    */
     Date strToDate(string s)
     {
         vector<string> result = explode(s, '-');
@@ -83,6 +113,9 @@ private:
         return d;
     }
 
+    /**
+     * Leitura Pré Processado
+    */
     void leituraPre()
     {
         arqEntrada.open(this->caminho_arquivo.c_str()); //Abre o arquivo de entrada
@@ -91,17 +124,18 @@ private:
         if (!arqEntrada || !arqEntrada.is_open())
         {
             cout << "Não foi possivel abrir o arquivo" << endl;
-            cout << "Verifique a pasta datasets pelo arquivo de entrada" << endl;
+            cout << "Verifique a pasta Datasets pelo arquivo de entrada" << endl;
             cout << "Caso o erro continue, verifique a função getDiretorio no arquivo 'LeitorBase.h'" << endl;
             exit(1); //Caso não tenha sido possível abrir, fecha o programa
         }
-        cout << "Aberto" << endl;
+
+        cout << "Arquivo Aberto" << endl;
         headerProcessado = false;
         int pos = 0;
 
         while (getline(arqEntrada, line))
         {
-            vector<string> result = explode(line, ',');
+            vector<string> result = explode(line, ','); //Quebra a string em partes menores
 
             if (headerProcessado == false)
             {
@@ -139,6 +173,9 @@ private:
         }
     }
 
+    /**
+     * Leitura Pós Processado
+    */
     void leituraPos()
     {
         arqEntrada.open(this->caminho_arquivo.c_str()); //Abre o arquivo de entrada
@@ -147,19 +184,20 @@ private:
         if (!arqEntrada || !arqEntrada.is_open())
         {
             cout << "Não foi possivel abrir o arquivo" << endl;
-            cout << "Verifique a pasta datasets pelo arquivo de entrada" << endl;
+            cout << "Verifique a pasta Datasets pelo arquivo de entrada" << endl;
             cout << "Caso o erro continue, verifique a função getDiretorio no arquivo 'LeitorBase.h'" << endl;
             exit(1); //Caso não tenha sido possível abrir, fecha o programa
         }
 
-        this->gerarSemente();
+        this->gerarSemente(); //Gera Semente Randômica
 
         headerProcessado = false;
-        int num_line = 0;
+        int num_line = 0; //Número de linhas
 
         while (getline(arqEntrada, line))
         {
-            vector<string> result = explode(line, ',');
+            vector<string> result = explode(line, ','); //Quebra a string inicial em partes menores
+            
             if (headerProcessado == false)
             {
                 headerProcessado = true;
@@ -169,15 +207,11 @@ private:
             }
             else
             {
-                //cout << "lendo aleatorio" << endl;
                 unsigned int pos = 0;
-                //cout << "Erro no unsigned" << endl;
                 while (dataset[pos].code != -1)
                 {
                     pos = getRand(n);
-                    //  cout << "pos " << pos << endl;
                 }
-                //cout << "sai do while" << endl;
 
                 if (result.size() > 1)
                 {
@@ -190,19 +224,15 @@ private:
                     u.deaths = strToInt(result[5]);
 
                     dataset[pos] = u;
-                    ///  cout << "Inserindo novo valor" << endl;
                     num_line++;
-                    ///  cout << "linhas inseridas " << num_line++;
                 }
 
                 if (num_line >= n)
                 {
-                    //cout << "break" << endl;
                     break;
                 }
             }
         }
-        // cout << "terminou leitura" << endl;
 
         if (arqEntrada.is_open())
         {

@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * MergeSort.h
+ * Propósito: Implementação do algoritmo MergeSort
+ * Fonte: https://www.geeksforgeeks.org/merge-sort/
+*/
 #ifndef MERGESORT_H
 #define MERGESORT_H
 
@@ -14,10 +20,16 @@ class MergeSort : public OrdenacaoBase
 public:
     MergeSort()
     {
-        this->resetContadores();
+        this->resetContadores(); //Reseta os contadores garantindo que o valor inicial seja sempre zero
     };
     ~MergeSort(){};
 
+    /**
+     * Ordenação para os tipos de dados do dataset 
+     * @param vetor: Vetor de Objetos
+     * @param inicio: Inicio do vetor de Objetos
+     * @param fim: Fim do vetor de Objetos
+    */
     void ordenar(BrazilCovid *vetor, int inicio, int fim)
     {
         int meio;
@@ -31,6 +43,13 @@ public:
     }
 
 private:
+    /**
+     * Função que realiza comparações e ordena o vetor de objetos
+     * @param vetor: Vetor de Objetos
+     * @param inicio: Inicio da parte do vetor de objetos que será intercalada
+     * @param meio: meio da parte que será intercalada
+     * @param fim: Fim da parte do vetor de objetos que será intercalada
+    */
     void intercala(BrazilCovid *vetor, int inicio, int meio, int fim)
     {
         BrazilCovid aux[fim + 1];

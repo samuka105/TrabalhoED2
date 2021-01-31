@@ -1,3 +1,8 @@
+/**
+ * Universidade Federal de Juiz de Fora 
+ * BrazilCovid.h
+ * Propósito: Armazenar as informações presentes no arquivo csv escolhido
+*/
 #ifndef BRAZILCOVID_H
 #define BRAZILCOVID_H
 

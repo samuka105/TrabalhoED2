@@ -1,3 +1,9 @@
+/**
+ * Universidade Federal de Juiz de Fora
+ * Etapa3.h
+ * Propósito: Classe que realiza a terceira Etapa do trabalho
+ * 
+*/
 #ifndef ETAPA3_H
 #define ETAPA3_H
 
@@ -124,6 +130,7 @@ public:
         }
     }
 
+    /*Aqui começam as funções que chamam os elementos de ordenação*/
     void mergeSort()
     {
         int n;
@@ -172,6 +179,7 @@ public:
     {
         int n;
         char ch;
+        cout << "O Algoritmo QuickSort tem apresentado erro para valores acima de 100.000" << endl;
         cout << "Informe o numero de registros a ser importado: ";
         cin >> n;
 
@@ -227,7 +235,6 @@ public:
         HeapSort *heap;
         heap = new HeapSort();
         timerStart();
-        cout << "inicia o heapSort" << endl;
         heap->ordenar(dataset, n-1);
         double tempo = timerEnd();
         int num_trocas = heap->getNumTrocas();
@@ -268,7 +275,6 @@ public:
         dataset = leitor->getDataset();
         BrazilCovid *copiaLocal = copiaVetor(dataset, n);
 
-        cout << "RadixSort com 10 & 100: " << endl;
         RadixSort *radix;
         radix = new RadixSort();
         timerStart();
