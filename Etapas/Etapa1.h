@@ -58,7 +58,7 @@ public:
 
             Log::getInstance().lineArquivo(line);
         }
-
+        cout<<"Arquivo fechado"<<endl;
         delete leitura;
     }
 

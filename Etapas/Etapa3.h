@@ -57,10 +57,6 @@ public:
 
         switch (opcao)
         {
-        case 0:
-            cout << "Finalizando" << endl;
-            exit(0);
-            break;
         case 1:
             leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
             if (n == 0)
@@ -95,7 +91,6 @@ public:
             }
             free(dataset);
             dataset = nullptr;
-            break;
         case 2:
             leitor = new LeitorCovid("brazil_covid19_cities_processado.csv");
             cout << "Informe o numero de registros a ser importado: ";
@@ -126,7 +121,6 @@ public:
             break;
         default:
             menu();
-            break;
         }
     }
 
@@ -219,7 +213,7 @@ public:
         delete[] copiaLocal;
     }
 
-      void heapSort()
+    void heapSort()
     {
         int n;
         char ch;
@@ -235,7 +229,7 @@ public:
         HeapSort *heap;
         heap = new HeapSort();
         timerStart();
-        heap->ordenar(dataset, n-1);
+        heap->ordenar(dataset, n - 1);
         double tempo = timerEnd();
         int num_trocas = heap->getNumTrocas();
         int num_comparacoes = heap->getNumComparacoes();
@@ -305,7 +299,7 @@ public:
         delete[] copiaLocal;
     }
 
-     void shellSort()
+    void shellSort()
     {
         int n;
         char ch;
@@ -321,7 +315,7 @@ public:
         ShellShort *shell;
         shell = new ShellShort();
         timerStart();
-        shell->ordenar(dataset,n);
+        shell->ordenar(dataset, n);
         double tempo = timerEnd();
         int num_trocas = shell->getNumTrocas();
         int num_comparacoes = shell->getNumComparacoes();
